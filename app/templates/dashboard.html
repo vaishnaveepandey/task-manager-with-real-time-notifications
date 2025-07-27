@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="mb-4">Welcome, {{ current_user.username }}</h2>
+
+<form method="POST" class="mb-4 p-3 border rounded bg-white">
+    {{ form.hidden_tag() }}
+    <div class="mb-3">
+        {{ form.title.label(class="form-label") }}
+        {{ form.title(class="form-control") }}
+    </div>
+    <div class="mb-3">
+        {{ form.due_date.label(class="form-label") }}
+        {{ form.due_date(class="form-control") }}
+    </div>
+    {{ form.submit(class="btn btn-primary") }}
+</form>
+
+<h4>Your Tasks</h4>
+<ul class="list-group">
+    {% for task in tasks %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span>
+                <strong>{{ task.title }}</strong> — Due: {{ task.due_date }}<br>
+                <small>Status: {{ '✔ Completed' if task.completed else '⏳ Pending' }}</small>
+            </span>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

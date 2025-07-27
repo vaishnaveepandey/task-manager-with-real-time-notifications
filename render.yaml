@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: task-manager
+    env: python
+    buildCommand: ""
+    startCommand: gunicorn run:app
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: taskmanager-db
+          property: connectionString
+      - key: SECRET_KEY
+        value: your-secret-key
+      - key: MAIL_USERNAME
+        value: your-gmail@gmail.com
+      - key: MAIL_PASSWORD
+        value: your-gmail-app-password
+
+databases:
+  - name: taskmanager-db
+    plan: free
